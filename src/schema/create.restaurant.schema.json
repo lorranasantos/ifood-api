@@ -1,0 +1,10 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CreateRestaurantSchema",
+  "type": "object",
+  "properties": {
+    "name": { "type": "string" },
+    "food_type": { "type": "string" }
+  },
+  "required": ["name", "food_type"]
+}

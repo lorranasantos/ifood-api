@@ -20,7 +20,7 @@ const encrypt = (text) => {
 };
 
 const decrypt = (hash) => {
-  console.log("eu sou a hash ", hash);
+  console.log("eu sou a hash", hash);
   const [newIv, text] = hash["userId"].split(":");
 
   const decipher = crypto.createDecipheriv(

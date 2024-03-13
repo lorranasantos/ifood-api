@@ -8,16 +8,10 @@ const verifyJwt = async (req, res, next) => {
     return res.status(401).json({ message: "Unset token!" });
   }
 
-  // console.log(
-  //   "id descriptografado inteiro",
-  //   parseInt(decrypt(await decryptedToken(authHeader)))
-  // );
   try {
-    const userId = await decryptedToken(authHeader);
-
+    console.log("eu sou o user id", userId);
     req.userId = parseInt(decrypt(userId));
 
-    console.log("passei");
     return next();
   } catch (error) {
     return res.status(401).json({ message: "Unauthorized!" });
