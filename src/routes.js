@@ -1,20 +1,26 @@
 const { Router } = require("express");
 
-const schemaValidator = require("./apps/middlewares/schemaValidator");
-
-const AuthenticationMiddleware = require("./apps/middlewares/authentication");
 const AuthenticationController = require("./apps/controllers/AuthenticationController");
+const AuthenticationMiddleware = require("./apps/middlewares/authentication");
 const authSchema = require("./schema/auth.schema.json");
 
-const UserController = require("./apps/controllers/UserController");
-const userSchema = require("./schema/create.user.schema.json");
+const CreateUserController = require("./apps/controllers/User/CreateUserController");
+const DeleteUserController = require("./apps/controllers/User/DeleteUserController");
+const GetUserController = require("./apps/controllers/User/GetUserController");
+const UpdateUserController = require("./apps/controllers/User/UpdateUserController");
 
-const RestaurantController = require("./apps/controllers/RestaurantController");
+const CreateRestaurantController = require("./apps/controllers/Restaurant/CreateRestaurantController");
+const DeleteRestaurantController = require("./apps/controllers/Restaurant/DeleteRestaurantController");
+const ListRestaurantController = require("./apps/controllers/Restaurant/ListRestaurantController");
+const UpdateRestaurantController = require("./apps/controllers/Restaurant/UpdateRestaurantController");
+
+const schemaValidator = require("./apps/middlewares/schemaValidator");
+const userSchema = require("./schema/create.user.schema.json");
 const restaurantSchema = require("./schema/create.restaurant.schema.json");
 
 const routes = new Router();
 
-routes.post("/user", schemaValidator(userSchema), UserController.create);
+routes.post("/user", schemaValidator(userSchema), CreateUserController.create);
 
 routes.post(
   "/auth",
@@ -25,19 +31,18 @@ routes.post(
 routes.post(
   "/restaurant",
   schemaValidator(restaurantSchema),
-  RestaurantController.create
+  CreateRestaurantController.create
 );
-routes.delete("/restaurant/:id", RestaurantController.delete);
-routes.get("/list-restaurant", RestaurantController.listRestaurants);
-routes.put("/restaurant/:id", RestaurantController.update);
+routes.delete("/restaurant/:id", DeleteRestaurantController.delete);
+routes.get("/list-restaurant", ListRestaurantController.listRestaurants);
+routes.put("/restaurant/:id", UpdateRestaurantController.update);
 
 //As rotas abaixo dessa função são privadas
 routes.use(AuthenticationMiddleware);
-//inserir rotas apenas abaixo deste middleware
 
-routes.put("/user", UserController.update);
-routes.delete("/user", UserController.delete);
-routes.get("/user-profile", UserController.userProfile);
+routes.put("/user", UpdateUserController.update);
+routes.delete("/user", DeleteUserController.delete);
+routes.get("/user-profile", GetUserController.userProfile);
 
 routes.get("/teste", (req, res) => res.send({ message: "connected" }));
 
