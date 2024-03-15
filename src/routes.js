@@ -14,9 +14,15 @@ const DeleteRestaurantController = require("./apps/controllers/Restaurant/Delete
 const ListRestaurantController = require("./apps/controllers/Restaurant/ListRestaurantController");
 const UpdateRestaurantController = require("./apps/controllers/Restaurant/UpdateRestaurantController");
 
+const CreateDishController = require("./apps/controllers/Dish/CreateDishController");
+
 const schemaValidator = require("./apps/middlewares/schemaValidator");
 const userSchema = require("./schema/create.user.schema.json");
 const restaurantSchema = require("./schema/create.restaurant.schema.json");
+const dishSchema = require("./schema/create.dish.schema.json");
+const ListDishController = require("./apps/controllers/Dish/ListDishController");
+const DeleteDishController = require("./apps/controllers/Dish/DeleteDishController");
+const UpdateDishController = require("./apps/controllers/Dish/UpdateDishController");
 
 const routes = new Router();
 
@@ -36,6 +42,11 @@ routes.post(
 routes.delete("/restaurant/:id", DeleteRestaurantController.delete);
 routes.get("/list-restaurant", ListRestaurantController.listRestaurants);
 routes.put("/restaurant/:id", UpdateRestaurantController.update);
+
+routes.post("/dish", schemaValidator(dishSchema), CreateDishController.create);
+routes.get("/list-dish", ListDishController.listDishes);
+routes.delete("/dish/:id", DeleteDishController.delete);
+routes.put("/dish/:id", UpdateDishController.update);
 
 //As rotas abaixo dessa função são privadas
 routes.use(AuthenticationMiddleware);
