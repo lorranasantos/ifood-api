@@ -1,14 +1,13 @@
-const Users = require("../../models/Users");
-const bcryptjs = require("bcryptjs");
+const User = require("../../models/User");
 
 class UpdateUserController {
   async update(req, res) {
-    const { name, avatar, old_password, new_password, confirm_new_password } =
-      req.body;
+    const { name, avatar, phone, idAddress } = req.body;
+    const { id } = req.params;
 
-    const user = await Users.findOne({
+    const user = await User.findOne({
       where: {
-        id: req.userId,
+        id: id,
       },
     });
 
@@ -16,31 +15,12 @@ class UpdateUserController {
       return res.status(400).json({ message: "User do not exists!" });
     }
 
-    let encryptedPassword = "";
-
-    if (old_password) {
-      if (!(await user.checkPassword(old_password))) {
-        return res.status(401).json({ error: "Old password does not match!" });
-      }
-
-      if (!new_password || !confirm_new_password) {
-        return res.status(401).json({
-          error: "We need a new password and confirm new password attributes",
-        });
-      }
-      if (new_password != confirm_new_password) {
-        return res.status(401).json({
-          error: "New password and confirm new password does not match",
-        });
-      }
-
-      encryptedPassword = await bcryptjs.hash(new_password, 8);
-    }
-    await Users.update(
+    await User.update(
       {
         name: name || user.name,
         avatar: avatar || user.avatar,
-        password_hash: encryptedPassword || user.password_hash,
+        phone: phone || user.phone,
+        idAddress: idAddress || user.idAddress,
       },
       {
         where: {

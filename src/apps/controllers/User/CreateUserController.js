@@ -1,22 +1,27 @@
-const Users = require("../../models/Users");
+const User = require("../../models/User");
 
 class CreateUserController {
   async create(req, res) {
-    const verifyUser = await Users.findOne({
-      where: {
-        email: req.body.email,
-      },
-    });
+    const { name, email, avatar, phone, idAddress, active } = req.body;
 
-    if (verifyUser) {
-      return res.status(400).json({ message: "User already exists" });
-    }
+    try {
+      const newUser = await User.create({
+        name,
+        email,
+        avatar,
+        phone,
+        idAddress,
+        active,
+      });
 
-    const user = await Users.create(req.body);
-    if (!user) {
-      return res.status(400).json({ message: "Failed in creating new user" });
+      return res.status(200).json({
+        data: { name, email, avatar, phone, avatar, idAddress, active },
+      });
+    } catch (error) {
+      console.log(error);
+      return res.status(400).json({ message: "User not created!" });
     }
-    return res.send({ message: "User Created!" });
   }
 }
+
 module.exports = new CreateUserController();

@@ -1,19 +1,20 @@
 const Sequelize = require("sequelize");
 const { Model } = require("sequelize");
 
-class Restaurants extends Model {
+class Dish extends Model {
   static init(sequelize) {
     super.init(
       {
         name: Sequelize.STRING,
-        food_type: Sequelize.STRING,
+        description: Sequelize.STRING,
+        price: Sequelize.DECIMAL,
+        image: Sequelize.STRING,
       },
       {
         sequelize,
       }
     );
-    return this;
   }
 }
 
-module.exports = Restaurants;
+module.exports = Dish;

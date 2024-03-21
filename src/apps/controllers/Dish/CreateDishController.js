@@ -1,23 +1,24 @@
-const Dishes = require("../../models/Dishes");
+const Dish = require("../../models/Dish");
 
 class CreateDishController {
   async create(req, res) {
     const { name, description, price, image } = req.body;
 
-    const newDish = await Dishes.create({
-      name,
-      description,
-      price,
-      image,
-    });
+    try {
+      const newDish = await Dish.create({
+        name,
+        description,
+        price,
+        image,
+      });
 
-    if (!newDish) {
-      return res.status(400).json({ message: "restaurant not created!" });
+      return res.status(200).json({
+        data: { name, description, price, image },
+      });
+    } catch (error) {
+      console.log(error);
+      return res.status(400).json({ message: "Dish not created!" });
     }
-
-    return res
-      .status(200)
-      .json({ data: { name, description, price, description, image } });
   }
 }
 

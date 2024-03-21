@@ -1,22 +1,21 @@
-const Users = require("../../models/Users");
+const User = require("../../models/User");
 
 class GetUserController {
-  async userProfile(req, res) {
-    console.log("aqi");
-    const user = await Users.findOne({
-      attributes: ["id", "name", "email", "phone", "avatar"],
-      where: {
-        id: req.userId,
-      },
-    });
-    console.log(user);
+  async index(req, res) {
+    const { id } = req.params;
 
-    if (!user) {
-      return res.status(400).json({ message: "User do not exist" });
+    try {
+      const findUser = await User.findOne({
+        where: {
+          id,
+        },
+      });
+
+      return res.status(200).json(findUser);
+    } catch (error) {
+      console.log(error);
+      return res.status(400).json({ message: "failed find this user!" });
     }
-
-    const { id, name, email, phone, avatar } = user;
-    return res.status(200).json({ id, name, email, phone, avatar });
   }
 }
 
