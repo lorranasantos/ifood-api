@@ -11,6 +11,11 @@ const DeleteDishController = require("./apps/controllers/Dish/DeleteDishControll
 const GetDishController = require("./apps/controllers/Dish/GetDishController");
 const UpdateDishController = require("./apps/controllers/Dish/UpdateDishController");
 const ListDishController = require("./apps/controllers/Dish/ListDishController");
+const CreateRestaurantController = require("./apps/controllers/Restaurant/CreateRestaurantController");
+const DeleteRestaurantController = require("./apps/controllers/Restaurant/DeleteRestaurantController");
+const UpdateRestaurantController = require("./apps/controllers/Restaurant/UpdateRestaurantController");
+const ListRestaurantController = require("./apps/controllers/Restaurant/ListRestaurantController");
+const GetRestaurantController = require("./apps/controllers/Restaurant/GetRestaurantController");
 
 const routes = new Router();
 
@@ -26,6 +31,13 @@ routes.delete("/dish/:id", DeleteDishController.delete);
 routes.get("/dish/:id", GetDishController.index);
 routes.put("/dish/:id", UpdateDishController.update);
 routes.get("/list-dish", ListDishController.listDish);
+
+//Restaurant
+routes.post("/restaurant", CreateRestaurantController.create);
+routes.delete("/restaurant/:id", DeleteRestaurantController.delete);
+routes.put("/restaurant/:id", UpdateRestaurantController.update);
+routes.get("/list-restaurant", ListRestaurantController.listRestaurant);
+routes.get("/restaurant/:id", GetRestaurantController.index);
 
 //OTP
 routes.route("/send-otp").post(sendOTP);

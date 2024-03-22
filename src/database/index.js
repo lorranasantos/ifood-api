@@ -1,11 +1,9 @@
 const Sequelize = require("sequelize");
 const User = require("../apps/models/User");
-/*const Restaurants = require("../apps/models/Restaurants");*/
+const Restaurant = require("../apps/models/Restaurant");
 const Dish = require("../apps/models/Dish");
 
-//const models = [Users, Restaurants, Dishes];
-
-const models = [User, Dish];
+const models = [User, Dish, Restaurant];
 const databaseConfig = require("../configs/db");
 
 class Database {
