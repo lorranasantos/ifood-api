@@ -1,12 +1,12 @@
 require("dotenv").config();
 require("./database/index");
 const express = require("express");
-const routes = require("./routes");
+const route = require("./route");
 
 const app = express();
 
 app.use(express.json());
-app.use(routes);
+app.use(route);
 
 const PORT = process.env.PORT;
 app.listen(PORT, () => {
