@@ -4,7 +4,7 @@ const Restaurant = require("../models/Restaurant");
 class RestaurantController {
   async create(req, res) {
     try {
-      const { name, category, image, description, idAddress, dish_id } =
+      const { name, category, image, description, address_id, dish_id } =
         req.body;
 
       const dish = await Dish.findByPk(dish_id);
@@ -18,7 +18,7 @@ class RestaurantController {
         category,
         image,
         description,
-        idAddress,
+        address_id,
         dish_id,
       });
 
@@ -86,7 +86,7 @@ class RestaurantController {
 
   async update(req, res) {
     try {
-      const { name, category, image, description, idAddress, dish_id } =
+      const { name, category, image, description, address_id, dish_id } =
         req.body;
 
       const { id } = req.params;
@@ -107,7 +107,7 @@ class RestaurantController {
           category: category || restaurant.category,
           image: image || restaurant.image,
           description: description || restaurant.description,
-          idAddress: idAddress || restaurant.idAddress,
+          address_id: address_id || restaurant.address_id,
           dish_id: dish_id || restaurant.dish_id,
         },
         {

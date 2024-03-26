@@ -1,4 +1,3 @@
-// models/Restaurant.js
 const { DataTypes, Model } = require("sequelize");
 
 class Restaurant extends Model {
@@ -9,6 +8,7 @@ class Restaurant extends Model {
         category: DataTypes.STRING,
         image: DataTypes.STRING,
         description: DataTypes.TEXT,
+        address_id: DataTypes.INTEGER,
         dish_id: DataTypes.INTEGER,
       },
       {
@@ -16,9 +16,11 @@ class Restaurant extends Model {
       }
     );
   }
-
   static associate(models) {
     this.belongsTo(models.Dish);
+  }
+  static associate(models) {
+    this.belongsTo(models.Address);
   }
 }
 
