@@ -58,8 +58,9 @@ class AddressController {
     if (!verifyAddress) {
       return res.status(404).json({ message: "Address does not exists!" });
     }
+
     try {
-      await address.destroy({
+      await verifyAddress.destroy({
         where: {
           id,
         },
