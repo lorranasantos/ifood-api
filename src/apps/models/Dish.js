@@ -17,7 +17,7 @@ class Dish extends Model {
     );
   }
   static associate(models) {
-    this.hasMany(models.Restaurant);
+    this.belongsToMany(models.Menu);
   }
 }
 

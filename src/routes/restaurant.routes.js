@@ -25,10 +25,9 @@ restaurantRouter.post(
     [Segments.BODY]: {
       name: Joi.string().max(80).required(),
       image: Joi.string().required(),
-      category: Joi.string().required(),
       description: Joi.string().max(250).required(),
+      category_id: Joi.number().integer().required(),
       address_id: Joi.number().integer().required(),
-      dish_id: Joi.number().integer().required(),
     },
   }),
   restaurantController.create
@@ -43,10 +42,9 @@ restaurantRouter.put(
     [Segments.BODY]: {
       name: Joi.string().max(80),
       image: Joi.string(),
-      category: Joi.string(),
+      category: Joi.number().integer(),
       description: Joi.string().max(250),
       address_id: Joi.number().integer(),
-      dish_id: Joi.number().integer(),
     },
   }),
   restaurantController.update

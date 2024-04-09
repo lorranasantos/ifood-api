@@ -1,25 +1,29 @@
-const Dish = require("../models/Dish");
+const Address = require("../models/Address");
+const Category = require("../models/Category");
 const Restaurant = require("../models/Restaurant");
 
 class RestaurantController {
   async create(req, res) {
     try {
-      const { name, category, image, description, address_id, dish_id } =
-        req.body;
+      const { name, image, description, category_id, address_id } = req.body;
 
-      const dish = await Dish.findByPk(dish_id);
+      const address = await Address.findByPk(address_id);
+      const category = await Category.findByPk(category_id);
 
-      if (!dish) {
-        return res.status(404).json({ message: "Dish not found!" });
+      if (!address) {
+        return res.status(404).json({ message: "Address not found!" });
+      }
+
+      if (!category) {
+        return res.status(404).json({ message: "Category not found!" });
       }
 
       const newRestaurant = await Restaurant.create({
         name,
-        category,
         image,
         description,
+        category_id,
         address_id,
-        dish_id,
       });
 
       return res.status(201).json(newRestaurant);
@@ -86,8 +90,7 @@ class RestaurantController {
 
   async update(req, res) {
     try {
-      const { name, category, image, description, address_id, dish_id } =
-        req.body;
+      const { name, image, description, category_id, address_id } = req.body;
 
       const { id } = req.params;
 
@@ -104,11 +107,10 @@ class RestaurantController {
       await Restaurant.update(
         {
           name: name || restaurant.name,
-          category: category || restaurant.category,
           image: image || restaurant.image,
           description: description || restaurant.description,
+          category_id: category_id || restaurant.category_id,
           address_id: address_id || restaurant.address_id,
-          dish_id: dish_id || restaurant.dish_id,
         },
         {
           where: {

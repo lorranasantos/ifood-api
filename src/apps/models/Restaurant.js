@@ -5,11 +5,10 @@ class Restaurant extends Model {
     super.init(
       {
         name: DataTypes.STRING,
-        category: DataTypes.STRING,
         image: DataTypes.STRING,
         description: DataTypes.TEXT,
+        category_id: DataTypes.INTEGER,
         address_id: DataTypes.INTEGER,
-        dish_id: DataTypes.INTEGER,
       },
       {
         sequelize,
@@ -17,10 +16,13 @@ class Restaurant extends Model {
     );
   }
   static associate(models) {
-    this.belongsTo(models.Dish);
+    this.belongsTo(models.Category);
   }
   static associate(models) {
     this.belongsTo(models.Address);
+  }
+  static associate(models) {
+    this.belongsToMany(models.Menu);
   }
 }
 

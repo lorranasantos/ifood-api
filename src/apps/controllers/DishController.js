@@ -1,6 +1,6 @@
 const Dish = require("../models/Dish");
 
-class CreateDishController {
+class DishController {
   async create(req, res) {
     const { name, description, price, image } = req.body;
 
@@ -109,4 +109,4 @@ class CreateDishController {
   }
 }
 
-module.exports = new CreateDishController();
+module.exports = new DishController();
