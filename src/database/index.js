@@ -6,8 +6,20 @@ const PhoneNumber = require("../apps/models/PhoneNumber");
 const Address = require("../apps/models/Address");
 const Category = require("../apps/models/Category");
 const Menu = require("../apps/models/Menu");
+const Basket = require("../apps/models/Basket");
+const Order = require("../apps/models/Order");
 
-const models = [User, Dish, Restaurant, PhoneNumber, Address, Category, Menu];
+const models = [
+  User,
+  Dish,
+  Restaurant,
+  PhoneNumber,
+  Address,
+  Category,
+  Menu,
+  Basket,
+  Order,
+];
 const databaseConfig = require("../configs/db");
 
 class Database {

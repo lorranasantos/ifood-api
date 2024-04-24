@@ -3,34 +3,35 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("restaurants", {
+    await queryInterface.createTable("orders", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      name: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      image: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      description: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      category_id: {
+      restaurant_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        references: { model: "categories", key: "id" },
+        references: { model: "restaurants", key: "id" },
       },
-      address_id: {
+      dish_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        references: { model: "addresses", key: "id" },
+        references: { model: "dishes", key: "id" },
+      },
+      basket_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: { model: "baskets", key: "id" },
+      },
+      dish_quantity: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      total: {
+        type: Sequelize.DECIMAL,
+        allowNull: false,
       },
       created_at: {
         type: Sequelize.DATE,
@@ -44,6 +45,6 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("restaurants");
+    await queryInterface.dropTable("orders");
   },
 };

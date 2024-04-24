@@ -21,12 +21,12 @@ usersRouter.post(
   "/",
   celebrate({
     [Segments.BODY]: {
-      name: Joi.string().max(130).required(),
-      email: Joi.string().email().max(100).required(),
-      active: Joi.boolean().required(),
-      avatar: Joi.string().required(),
-      phone: Joi.number().integer().max(13).required(),
-      idAddress: Joi.number().integer().required(),
+      name: Joi.required(),
+      email: Joi.required(),
+      active: Joi.required(),
+      avatar: Joi.required(),
+      phone: Joi.required(),
+      idAddress: Joi.required(),
     },
   }),
   userController.create
