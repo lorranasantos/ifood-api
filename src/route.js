@@ -12,6 +12,7 @@ const menuRouter = require("./routes/menu.routes");
 const FileController = require("./apps/controllers/FileController");
 const basketRouter = require("./routes/basket.routes");
 const ordersRouter = require("./routes/order.routes");
+const concludeOrdersRouter = require("./routes/concludeOrder.routes");
 
 const routes = new Router();
 
@@ -23,6 +24,7 @@ routes.use("/category", categoriesRouter);
 routes.use("/menu", menuRouter);
 routes.use("/basket", basketRouter);
 routes.use("/order", ordersRouter);
+routes.use("/concludeOrder", concludeOrdersRouter);
 
 //multer
 routes.post("/upload", upload.single("image"), FileController.upload);

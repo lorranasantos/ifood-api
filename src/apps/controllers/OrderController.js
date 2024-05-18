@@ -93,27 +93,22 @@ class OrderController {
       return res.status(400).json({ message: "Order do not exists!" });
     }
 
-    try {
-      await Order.update(
-        {
-          basket_id: basket_id || order.basket_id,
-          restaurant_id: restaurant_id || order.restaurant_id,
-          dish_id: dish_id || order.dish_id,
-          dish_quantity: dish_quantity || order.dish_quantity,
-          total: total || order.total,
+    await Order.update(
+      {
+        basket_id: basket_id || order.basket_id,
+        restaurant_id: restaurant_id || order.restaurant_id,
+        dish_id: dish_id || order.dish_id,
+        dish_quantity: dish_quantity || order.dish_quantity,
+        total: total || order.total,
+      },
+      {
+        where: {
+          id: order.id,
         },
-        {
-          where: {
-            id: order.id,
-          },
-        }
-      );
+      }
+    );
 
-      return res.status(200).json({ message: "Order updated" });
-    } catch (error) {
-      console.log(error);
-      return res.status(400).json({ message: "Order not updated!" });
-    }
+    return res.status(200).json({ message: "Order updated", data: { order } });
   }
 }
 

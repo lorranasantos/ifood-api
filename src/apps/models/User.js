@@ -10,11 +10,15 @@ class User extends Model {
         active: Sequelize.BOOLEAN,
         avatar: Sequelize.STRING,
         phone: Sequelize.INTEGER,
+        address_id: Sequelize.DataTypes.INTEGER,
       },
       {
         sequelize,
       }
     );
+  }
+  static associate(models) {
+    this.belongsTo(models.Address);
   }
 }
 

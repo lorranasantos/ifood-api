@@ -21,12 +21,12 @@ usersRouter.post(
   "/",
   celebrate({
     [Segments.BODY]: {
-      name: Joi.string().max(130).required(),
-      email: Joi.string().email().max(100).required(),
-      active: Joi.boolean().required(),
-      avatar: Joi.string().required(),
-      phone: Joi.number().integer().max(13).required(),
-      idAddress: Joi.number().integer().required(),
+      name: Joi.string().max(130),
+      email: Joi.string().email().max(100),
+      active: Joi.boolean(),
+      avatar: Joi.string(),
+      phone: Joi.number().integer(),
+      address_id: Joi.number().integer(),
     },
   }),
   userController.create
@@ -44,7 +44,7 @@ usersRouter.put(
       active: Joi.boolean(),
       avatar: Joi.string(),
       phone: Joi.number().integer().max(13),
-      idAddress: Joi.number().integer(),
+      address_id: Joi.number().integer(),
     },
   }),
   userController.update

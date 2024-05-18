@@ -8,6 +8,7 @@ const Category = require("../apps/models/Category");
 const Menu = require("../apps/models/Menu");
 const Basket = require("../apps/models/Basket");
 const Order = require("../apps/models/Order");
+const ConcludeOrder = require("../apps/models/ConcludeOrders");
 
 const models = [
   User,
@@ -19,6 +20,7 @@ const models = [
   Menu,
   Basket,
   Order,
+  ConcludeOrder,
 ];
 const databaseConfig = require("../configs/db");
 

@@ -20,6 +20,9 @@ class Address extends Model {
   static associate(models) {
     this.hasMany(models.Restaurant);
   }
+  static associate(models) {
+    this.hasMany(models.User);
+  }
 }
 
 module.exports = Address;

@@ -1,8 +1,14 @@
+const Address = require("../models/Address");
 const User = require("../models/User");
-
 class UserController {
   async create(req, res) {
-    const { name, email, avatar, phone, idAddress, active } = req.body;
+    const { name, email, avatar, phone, address_id, active } = req.body;
+
+    const address = await Address.findByPk(address_id);
+
+    if (!address) {
+      return res.status(404).json({ message: "Address not found!" });
+    }
 
     try {
       const newUser = await User.create({
@@ -10,12 +16,12 @@ class UserController {
         email,
         avatar,
         phone,
-        idAddress,
+        address_id,
         active,
       });
 
       return res.status(200).json({
-        data: { name, email, avatar, phone, avatar, idAddress, active },
+        newUser,
       });
     } catch (error) {
       console.log(error);
@@ -39,7 +45,7 @@ class UserController {
     }
   }
   async update(req, res) {
-    const { name, avatar, phone, idAddress } = req.body;
+    const { name, avatar, phone, address_id } = req.body;
     const { id } = req.params;
 
     const user = await User.findOne({
@@ -57,7 +63,7 @@ class UserController {
         name: name || user.name,
         avatar: avatar || user.avatar,
         phone: phone || user.phone,
-        idAddress: idAddress || user.idAddress,
+        address_id: address_id || user.address_id,
       },
       {
         where: {
@@ -66,7 +72,7 @@ class UserController {
       }
     );
 
-    return res.status(200).json({ message: "User updated" });
+    return res.status(200).json({ message: "User updated", data: { user } });
   }
   async delete(req, res) {
     const { id } = req.params;
@@ -85,6 +91,10 @@ class UserController {
           id,
         },
       });
+
+      if (!deleteUser) {
+        return res.status(404).json({ message: "Restaurant does not exist!" });
+      }
 
       return res.status(200).json({ message: "User deleted!" });
     } catch (error) {
