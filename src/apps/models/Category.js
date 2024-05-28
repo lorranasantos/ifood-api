@@ -1,11 +1,10 @@
-const Sequelize = require("sequelize");
-const { Model } = require("sequelize");
+const { Model, DataTypes } = require("sequelize");
 
 class Category extends Model {
   static init(sequelize) {
     super.init(
       {
-        category: Sequelize.DataTypes.STRING,
+        category: DataTypes.STRING,
       },
       {
         sequelize,
@@ -13,8 +12,9 @@ class Category extends Model {
       }
     );
   }
+
   static associate(models) {
-    this.hasMany(models.Restaurant);
+    this.hasMany(models.Restaurant, { foreignKey: "category_id" });
   }
 }
 

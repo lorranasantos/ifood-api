@@ -1,4 +1,4 @@
-const { DataTypes, Model } = require("sequelize");
+const { Model, DataTypes } = require("sequelize");
 
 class Restaurant extends Model {
   static init(sequelize) {
@@ -12,17 +12,19 @@ class Restaurant extends Model {
       },
       {
         sequelize,
+        modelName: "Restaurant",
       }
     );
   }
+
   static associate(models) {
-    this.belongsTo(models.Category);
-  }
-  static associate(models) {
-    this.belongsTo(models.Address);
-  }
-  static associate(models) {
-    this.belongsToMany(models.Menu);
+    this.belongsTo(models.Category, { foreignKey: "category_id" });
+    this.belongsTo(models.Address, { foreignKey: "address_id" });
+    this.belongsToMany(models.Dish, {
+      through: models.Menu,
+      foreignKey: "restaurant_id",
+      otherKey: "dish_id",
+    });
   }
 }
 

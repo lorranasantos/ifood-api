@@ -13,6 +13,7 @@ const FileController = require("./apps/controllers/FileController");
 const basketRouter = require("./routes/basket.routes");
 const ordersRouter = require("./routes/order.routes");
 const concludeOrdersRouter = require("./routes/concludeOrder.routes");
+const RestaurantController = require("./apps/controllers/RestaurantController");
 
 const routes = new Router();
 
@@ -25,6 +26,13 @@ routes.use("/menu", menuRouter);
 routes.use("/basket", basketRouter);
 routes.use("/order", ordersRouter);
 routes.use("/concludeOrder", concludeOrdersRouter);
+
+routes.put("/restaurant/:id", RestaurantController.update);
+routes.post("/restaurant", RestaurantController.create);
+routes.get(
+  "/restaurant-report",
+  RestaurantController.reportRestaurantsByCategory
+);
 
 //multer
 routes.post("/upload", upload.single("image"), FileController.upload);

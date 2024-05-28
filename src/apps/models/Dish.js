@@ -1,14 +1,13 @@
-const Sequelize = require("sequelize");
-const { Model } = require("sequelize");
+const { Model, DataTypes } = require("sequelize");
 
 class Dish extends Model {
   static init(sequelize) {
     super.init(
       {
-        name: Sequelize.DataTypes.STRING,
-        description: Sequelize.STRING,
-        price: Sequelize.DECIMAL,
-        image: Sequelize.STRING,
+        name: DataTypes.STRING,
+        description: DataTypes.STRING,
+        price: DataTypes.DECIMAL,
+        image: DataTypes.STRING,
       },
       {
         sequelize,
@@ -16,8 +15,13 @@ class Dish extends Model {
       }
     );
   }
+
   static associate(models) {
-    this.belongsToMany(models.Menu);
+    this.belongsToMany(models.Restaurant, {
+      through: models.Menu,
+      foreignKey: "dish_id",
+      otherKey: "restaurant_id",
+    });
   }
 }
 

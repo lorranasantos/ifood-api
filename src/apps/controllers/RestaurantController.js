@@ -18,6 +18,12 @@ class RestaurantController {
         return res.status(404).json({ message: "Category not found!" });
       }
 
+      if (!name || !description) {
+        return res
+          .status(404)
+          .json({ message: "You must register a name and description!" });
+      }
+
       const newRestaurant = await Restaurant.create({
         name,
         image,
@@ -125,6 +131,28 @@ class RestaurantController {
       return res
         .status(400)
         .json({ message: "failed update this restaurant!" });
+    }
+  }
+  async reportRestaurantsByCategory(req, res) {
+    try {
+      const categories = await Category.findAll({
+        include: [
+          {
+            model: Restaurant,
+            attributes: ["id"],
+          },
+        ],
+      });
+
+      const report = categories.map((category) => ({
+        category: category.category,
+        restaurantCount: category.Restaurants.length,
+      }));
+
+      return res.status(200).json(report);
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ message: "Internal Server Error" });
     }
   }
 }

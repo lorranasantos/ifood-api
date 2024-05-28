@@ -1,4 +1,3 @@
-const Sequelize = require("sequelize");
 const { Model, DataTypes } = require("sequelize");
 
 class Menu extends Model {
@@ -13,12 +12,6 @@ class Menu extends Model {
         modelName: "Menu",
       }
     );
-  }
-  static associate(models) {
-    this.hasMany(models.Restaurant);
-  }
-  static associate(models) {
-    this.hasMany(models.Dish);
   }
 }
 

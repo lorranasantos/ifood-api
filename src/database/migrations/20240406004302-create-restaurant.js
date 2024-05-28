@@ -16,7 +16,7 @@ module.exports = {
       },
       image: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       description: {
         type: Sequelize.STRING,
@@ -29,7 +29,7 @@ module.exports = {
       },
       address_id: {
         type: Sequelize.INTEGER,
-        allowNull: false,
+        allowNull: true,
         references: { model: "addresses", key: "id" },
       },
       created_at: {

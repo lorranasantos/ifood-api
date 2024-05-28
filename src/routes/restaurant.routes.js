@@ -19,36 +19,19 @@ restaurantRouter.get(
   restaurantController.index
 );
 
-restaurantRouter.post(
-  "/",
-  celebrate({
-    [Segments.BODY]: {
-      name: Joi.string().max(80).required(),
-      image: Joi.string().required(),
-      description: Joi.string().max(250).required(),
-      category_id: Joi.number().integer().required(),
-      address_id: Joi.number().integer().required(),
-    },
-  }),
-  restaurantController.create
-);
-
-restaurantRouter.put(
-  "/:id",
-  celebrate({
-    [Segments.PARAMS]: {
-      id: Joi.number().integer().required(),
-    },
-    [Segments.BODY]: {
-      name: Joi.string().max(80),
-      image: Joi.string(),
-      category: Joi.number().integer(),
-      description: Joi.string().max(250),
-      address_id: Joi.number().integer(),
-    },
-  }),
-  restaurantController.update
-);
+// restaurantRouter.post(
+//   "/",
+//   celebrate({
+//     [Segments.BODY]: {
+//       name: Joi.string().max(80),
+//       image: Joi.string(),
+//       description: Joi.string().max(250),
+//       category_id: Joi.number().integer(),
+//       address_id: Joi.number().integer(),
+//     },
+//   }),
+//   restaurantController.create
+// );
 
 restaurantRouter.delete(
   "/:id",
