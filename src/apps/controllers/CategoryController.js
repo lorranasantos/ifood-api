@@ -6,7 +6,9 @@ class CategoryController {
 
     try {
       const findCategory = await Category.findOne({
-        attributes: ["id", "category"],
+        where: {
+          id,
+        },
       });
 
       return res.status(200).json(findCategory);

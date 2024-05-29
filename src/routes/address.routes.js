@@ -19,22 +19,6 @@ addressRouter.get(
   addressController.index
 );
 
-addressRouter.post(
-  "/",
-  celebrate({
-    [Segments.BODY]: {
-      address: Joi.string().max(80).required(),
-      house_number: Joi.number().integer().required(),
-      zip_code: Joi.number().integer().required(),
-      neighborhood: Joi.string().max(40).required(),
-      city: Joi.string().max(40).required(),
-      state: Joi.string(),
-      complement: Joi.string(),
-    },
-  }),
-  addressController.create
-);
-
 addressRouter.put(
   "/:id",
   celebrate({

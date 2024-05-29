@@ -1,6 +1,7 @@
 const Address = require("../models/Address");
 const Category = require("../models/Category");
 const Restaurant = require("../models/Restaurant");
+const { Sequelize, Op } = require("sequelize");
 
 class RestaurantController {
   async create(req, res) {
@@ -152,6 +153,28 @@ class RestaurantController {
       return res.status(200).json(report);
     } catch (error) {
       console.error(error);
+      return res.status(500).json({ message: "Internal Server Error" });
+    }
+  }
+
+  async search(req, res) {
+    const { name, category } = req.query;
+    console.log("aqi");
+    try {
+      const whereConditions = {};
+      console.log("aqio");
+
+      whereConditions.name = {
+        [Op.like]: Sequelize.literal(`LOWER('%${name}%')`),
+      };
+
+      const restaurants = await Restaurant.findAll({
+        where: whereConditions,
+      });
+
+      return res.status(200).json(restaurants);
+    } catch (error) {
+      console.log(error);
       return res.status(500).json({ message: "Internal Server Error" });
     }
   }

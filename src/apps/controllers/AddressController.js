@@ -23,7 +23,7 @@ class AddressController {
         complement,
       });
 
-      return res.status(200).json({ addresses });
+      return res.status(200).json(addresses);
     } catch (error) {
       console.log(error);
       return res.status(400).json({ message: "Address not created!" });

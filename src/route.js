@@ -14,6 +14,8 @@ const basketRouter = require("./routes/basket.routes");
 const ordersRouter = require("./routes/order.routes");
 const concludeOrdersRouter = require("./routes/concludeOrder.routes");
 const RestaurantController = require("./apps/controllers/RestaurantController");
+const { route } = require("./routes/user.routes");
+const AddressController = require("./apps/controllers/AddressController");
 
 const routes = new Router();
 
@@ -33,6 +35,10 @@ routes.get(
   "/restaurant-report",
   RestaurantController.reportRestaurantsByCategory
 );
+
+routes.post("/address", AddressController.create);
+
+//routes.get("/restaurant/search", RestaurantController.search);
 
 //multer
 routes.post("/upload", upload.single("image"), FileController.upload);

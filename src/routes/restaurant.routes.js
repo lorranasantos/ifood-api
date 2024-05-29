@@ -9,6 +9,8 @@ const restaurantController = RestaurantController;
 
 restaurantRouter.get("/", restaurantController.listRestaurant);
 
+restaurantRouter.get("/search", restaurantController.search);
+
 restaurantRouter.get(
   "/:id",
   celebrate({
